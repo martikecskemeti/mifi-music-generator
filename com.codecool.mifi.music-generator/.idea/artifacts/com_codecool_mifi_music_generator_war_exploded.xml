@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="com.codecool.mifi.music-generator:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/com_codecool_mifi_music_generator_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="com.codecool.mifi.music-generator/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="com.codecool.mifi.music-generator" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
