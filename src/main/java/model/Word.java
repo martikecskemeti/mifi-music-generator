@@ -25,7 +25,7 @@ public class Word {
     @JoinColumn(name = "text_id")
     private Text text;
 
-    //public Word() {}
+    public Word() {}
 
     public Word(String name, double sentiment, double anger, double disgust, double fear, double joy, double sadness) {
         this.name = name;
