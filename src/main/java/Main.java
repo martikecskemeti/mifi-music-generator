@@ -22,20 +22,42 @@ public class Main {
     public static void populateDb(EntityManager em) {
 
 
+
+//        System.out.println(results);
+//        System.out.println(results.getSentiment().getDocument().getScore());
+//        System.out.println(results.getEntities().get(0).getSentiment());
+//        System.out.println(results.getEntities().get(0).getEmotion().getJoy());
+
+        String userInput = "IBM is an American multinational technology " +
+                "Thank you and have a nice dog " +
+                "I love apples! I don't like oranges.";
+
         User user = new User("Kiki");
-        Text text = new Text(0.89,"I like apples, but hate oranges.");
-        Word firstWord = new Word("apples",0.75,0.55,0.45, 0.65,0.78,0.11);
-        Word secondWord = new Word("oranges",0.75,0.55,0.45, 0.65,0.78,0.11);
-        text.addWords(firstWord);
-        text.addWords(secondWord);
-        user.addTexts(text);
+        Text text = new Text(userInput);
+
+        AnalysisResults results = Controller.getData(text);
 
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         em.persist(user);
+
+        text.setSumSentiment(results.getSentiment().getDocument().getScore());
         em.persist(text);
-        em.persist(firstWord);
-        em.persist(secondWord);
+        user.addTexts(text);
+
+        for(int i=0; i<results.getKeywords().size(); i++){
+            Word word = new Word();
+            word.setName(results.getKeywords().get(i).getText());
+            word.setAnger(results.getKeywords().get(i).getEmotion().getAnger());
+            word.setFear(results.getKeywords().get(i).getEmotion().getFear());
+            word.setJoy(results.getKeywords().get(i).getEmotion().getJoy());
+            word.setDisgust(results.getKeywords().get(i).getEmotion().getDisgust());
+            word.setSadness(results.getKeywords().get(i).getEmotion().getSadness());
+            word.setSentiment(results.getKeywords().get(i).getSentiment().getScore());
+            em.persist(word);
+            text.addWords(word);
+        }
+
         transaction.commit();
         System.out.println("stuff saved.");
 
@@ -43,12 +65,6 @@ public class Main {
 
 
     public static void main(String[] args) {
-        //AnalysisResults results = Controller.getData();
-        //System.out.println(results);
-        //System.out.println(results.getSentiment().getDocument().getScore());
-        //System.out.println(results.getEntities().get(0).getSentiment());
-        //System.out.println(results.getEntities().get(0).getEmotion().getJoy());
-
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("music-gen");
         EntityManager em = emf.createEntityManager();

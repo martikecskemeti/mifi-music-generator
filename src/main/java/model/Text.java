@@ -30,8 +30,7 @@ public class Text {
 
     public Text(){}
 
-    public Text(double sumSentiment, String content) {
-        this.sumSentiment = sumSentiment;
+    public Text(String content) {
         this.content = content;
     }
 
