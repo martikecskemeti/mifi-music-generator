@@ -5,21 +5,17 @@ import model.Text;
 import model.User;
 import model.Word;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 /**
  * Created by marti on 2017.06.20..
  */
 public class Main {
 
-    public static void populateDb(EntityManager em) {
+    private static void populateDb(EntityManager em) {
 
 
 
@@ -28,9 +24,8 @@ public class Main {
 //        System.out.println(results.getEntities().get(0).getSentiment());
 //        System.out.println(results.getEntities().get(0).getEmotion().getJoy());
 
-        String userInput = "IBM is an American multinational technology " +
-                "Thank you and have a nice dog " +
-                "I love apples! I don't like oranges.";
+        String userInput =
+                "";
 
         User user = new User("Kiki");
         Text text = new Text(userInput);
@@ -63,13 +58,58 @@ public class Main {
 
     }
 
+    private static List<String> getEmotionsFromText(EntityManager em) {
+        List<String> emotions = new ArrayList<>();
+        /*List<Double> emotionScores = new ArrayList<>();
+        List<Word> results = em.createNamedQuery("Word.getAllKeywordsWithScores", Word.class)
+                .getResultList();
+        }*/
+
+        List result = em.createQuery("SELECT s.name, s.anger, s.disgust, s.fear, s.joy, s.sadness FROM Word s WHERE s.text.id = 6").getResultList();
+
+
+        for (Iterator i = result.iterator(); i.hasNext(); ) {
+            Object[] values = (Object[]) i.next();
+            List<Double> doubles = new ArrayList<>();
+
+            String name = (String) values[0];
+
+            for (int k = 1; k < values.length; k++) {
+                doubles.add((Double) values [k]);
+            }
+
+            Map<Integer, String> emotionMap = new HashMap<>();
+            emotionMap.put(0, "anger");
+            emotionMap.put(1, "disgust");
+            emotionMap.put(2, "fear");
+            emotionMap.put(3, "joy");
+            emotionMap.put(4, "sadness");
+
+            double maxi = -1;
+            int emo = 0;
+            for (int j = 0; j < doubles.size(); j++) {
+                if (doubles.get(j) > maxi) {
+                    maxi = doubles.get(j);
+                    emo = j;
+                }
+            }
+            System.out.println(name);
+            System.out.println(maxi);
+            System.out.println(emotionMap.get(emo));
+            System.out.println("-------------");
+
+        }
+
+        return emotions;
+    }
+
 
     public static void main(String[] args) {
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("music-gen");
         EntityManager em = emf.createEntityManager();
 
-        populateDb(em);
+        //populateDb(em);
 
 //        Student foundStudent1 = em.find(Student.class, 1L);
 //        System.out.println("--Found student #1");
@@ -77,6 +117,7 @@ public class Main {
 //        System.out.println("----address of student----" + foundStudent1.getAddress());
 
 
+        getEmotionsFromText(em);
         em.close();
         emf.close();
 

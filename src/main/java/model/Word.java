@@ -5,6 +5,12 @@ import javax.persistence.*;
 /**
  * Created by marti on 2017.06.22..
  */
+@NamedQueries( {
+        @NamedQuery(name="Word.getAllKeywordsWithScores", query="SELECT s FROM Word s"),
+        @NamedQuery(name="Word.getMaxScoredEmotionOfText", query ="SELECT s.anger, s.disgust, s.fear, s.joy, s.sadness FROM Word s WHERE s.id = 6")
+})
+
+
 @Entity
 public class Word {
 
