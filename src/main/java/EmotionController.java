@@ -14,16 +14,17 @@ public class EmotionController {
     public static List<String> getOrderedEmotions(EntityManager em, long id) {
         List<String> orderedEmotions = new ArrayList<>();
         try {
-            Text textResult = em.createNamedQuery("Text.getTheText", Text.class).setParameter("id", id).getSingleResult();
+            Text textResult = em.createNamedQuery("Text.getTheText", Text.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
             String[] separatedWords = textResult.getContent().split("[\\p{Punct}\\s]+");
 
             Map<String, String> emotions = getEmotionsFromText(em, id);
 
             for (String separatedWord : separatedWords) {
-                for (String s : emotions.keySet()) {
-                    if (separatedWord.equals(s)) {
-                        orderedEmotions.add(emotions.get(s));
-                    }
+                String emo = emotions.get(separatedWord);
+                if (emo != null) {
+                    orderedEmotions.add(emo);
                 }
             }
         }
@@ -35,40 +36,30 @@ public class EmotionController {
 
     private static Map<String, String> getEmotionsFromText(EntityManager em, long id) {
         Map<String, String> emotions = new HashMap<>();
-        Map<Integer, String> emotionMap = createEmotionMap();
-        List results = em.createNamedQuery("Word.getEmotionsOfText").setParameter("id", id)
+        List<Word> words = em.createNamedQuery("Word.getAllKeywordsWithScores", Word.class)
+                .setParameter("id", id)
                 .getResultList();
 
-
-        for (Object result : results) {
-            Object[] resultArray = (Object[]) result;
-            List<Double> emotionScores = new ArrayList<>();
-
-            String name = (String) resultArray[0];
-
-            for (int k = 1; k < resultArray.length; k++) {
-                emotionScores.add((Double) resultArray[k]);
-            }
-            double maxi = -1;
-            int emo = 0;
-            for (int j = 0; j < emotionScores.size(); j++) {
-                if (emotionScores.get(j) > maxi) {
-                    maxi = emotionScores.get(j);
-                    emo = j;
-                }
-            }
-            emotions.put(name, emotionMap.get(emo));
+        for (Word word : words) {
+            emotions.put(word.getName(), getHighestEmotion(word));
         }
         return emotions;
     }
 
-    private static Map<Integer,String> createEmotionMap() {
-        Map<Integer, String> emotionMap = new HashMap<>();
-        emotionMap.put(0, "anger");
-        emotionMap.put(1, "disgust");
-        emotionMap.put(2, "fear");
-        emotionMap.put(3, "joy");
-        emotionMap.put(4, "sadness");
-        return emotionMap;
+    private static String  getHighestEmotion(Word word) {
+        Map <String, Double> emotionScores = new HashMap<>();
+        emotionScores.put("anger", word.getAnger());
+        emotionScores.put("joy", word.getJoy());
+        emotionScores.put("fear", word.getFear());
+        emotionScores.put("sadness", word.getSadness());
+        emotionScores.put("disgust", word.getDisgust());
+
+        Map.Entry<String, Double> max = null;
+        for (Map.Entry<String, Double> entry : emotionScores.entrySet()) {
+            if (max == null || entry.getValue().compareTo(max.getValue()) > 0) {
+                max = entry;
+            }
+        }
+        return max.getKey();
     }
 }
