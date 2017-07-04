@@ -1,6 +1,7 @@
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.NaturalLanguageUnderstanding;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.*;
+import jm.music.data.Score;
 import model.Text;
 import model.User;
 import model.Word;
@@ -64,7 +65,7 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("music-gen");
         EntityManager em = emf.createEntityManager();
 
-       // populateDb(em);
+       //populateDb(em);
 
 //        Student foundStudent1 = em.find(Student.class, 1L);
 //        System.out.println("--Found student #1");
@@ -72,11 +73,15 @@ public class Main {
 //        System.out.println("----address of student----" + foundStudent1.getAddress());
 
 
-        List<String> orderedEmotions = EmotionController.getOrderedEmotions(em, 13);
+        List<String> orderedEmotions = EmotionController.getOrderedEmotions(em, 2);
         for (String orderedEmotion : orderedEmotions) {
             System.out.println(orderedEmotion);
 
         }
+
+        MusicController mc = new MusicController("title13");
+        mc.makeSong(orderedEmotions);
+
         em.close();
         emf.close();
 
