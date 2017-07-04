@@ -25,7 +25,7 @@ public class Main {
 //        System.out.println(results.getEntities().get(0).getEmotion().getJoy());
 
         String userInput =
-                "";
+                "I hate this music. I fear in dark. I love apples, but I hate oranges. Your story is sad. ";
 
         User user = new User("Kiki");
         Text text = new Text(userInput);
@@ -58,58 +58,13 @@ public class Main {
 
     }
 
-    private static List<String> getEmotionsFromText(EntityManager em) {
-        List<String> emotions = new ArrayList<>();
-        /*List<Double> emotionScores = new ArrayList<>();
-        List<Word> results = em.createNamedQuery("Word.getAllKeywordsWithScores", Word.class)
-                .getResultList();
-        }*/
-
-        List result = em.createQuery("SELECT s.name, s.anger, s.disgust, s.fear, s.joy, s.sadness FROM Word s WHERE s.text.id = 6").getResultList();
-
-
-        for (Iterator i = result.iterator(); i.hasNext(); ) {
-            Object[] values = (Object[]) i.next();
-            List<Double> doubles = new ArrayList<>();
-
-            String name = (String) values[0];
-
-            for (int k = 1; k < values.length; k++) {
-                doubles.add((Double) values [k]);
-            }
-
-            Map<Integer, String> emotionMap = new HashMap<>();
-            emotionMap.put(0, "anger");
-            emotionMap.put(1, "disgust");
-            emotionMap.put(2, "fear");
-            emotionMap.put(3, "joy");
-            emotionMap.put(4, "sadness");
-
-            double maxi = -1;
-            int emo = 0;
-            for (int j = 0; j < doubles.size(); j++) {
-                if (doubles.get(j) > maxi) {
-                    maxi = doubles.get(j);
-                    emo = j;
-                }
-            }
-            System.out.println(name);
-            System.out.println(maxi);
-            System.out.println(emotionMap.get(emo));
-            System.out.println("-------------");
-
-        }
-
-        return emotions;
-    }
-
 
     public static void main(String[] args) {
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("music-gen");
         EntityManager em = emf.createEntityManager();
 
-        //populateDb(em);
+       // populateDb(em);
 
 //        Student foundStudent1 = em.find(Student.class, 1L);
 //        System.out.println("--Found student #1");
@@ -117,7 +72,11 @@ public class Main {
 //        System.out.println("----address of student----" + foundStudent1.getAddress());
 
 
-        getEmotionsFromText(em);
+        List<String> orderedEmotions = EmotionController.getOrderedEmotions(em, 13);
+        for (String orderedEmotion : orderedEmotions) {
+            System.out.println(orderedEmotion);
+
+        }
         em.close();
         emf.close();
 

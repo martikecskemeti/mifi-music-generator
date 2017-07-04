@@ -6,8 +6,8 @@ import javax.persistence.*;
  * Created by marti on 2017.06.22..
  */
 @NamedQueries( {
-        @NamedQuery(name="Word.getAllKeywordsWithScores", query="SELECT s FROM Word s"),
-        @NamedQuery(name="Word.getMaxScoredEmotionOfText", query ="SELECT s.anger, s.disgust, s.fear, s.joy, s.sadness FROM Word s WHERE s.id = 6")
+        @NamedQuery(name="Word.getAllKeywordsWithScores", query="SELECT w FROM Word w"),
+        @NamedQuery(name="Word.getEmotionsOfText", query ="SELECT w.name, w.anger, w.disgust, w.fear, w.joy, w.sadness FROM Word w WHERE w.text.id=:id")
 })
 
 
