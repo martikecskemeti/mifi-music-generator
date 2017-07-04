@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * Created by marti on 2017.06.22..
  */
-
+@NamedQuery(name = "Text.getTheText", query = "SELECT t FROM Text t WHERE t.id=:id")
 @Entity
 public class Text {
 

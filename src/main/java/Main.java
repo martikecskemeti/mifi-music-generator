@@ -5,21 +5,17 @@ import model.Text;
 import model.User;
 import model.Word;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 /**
  * Created by marti on 2017.06.20..
  */
 public class Main {
 
-    public static void populateDb(EntityManager em) {
+    private static void populateDb(EntityManager em) {
 
 
 
@@ -28,9 +24,8 @@ public class Main {
 //        System.out.println(results.getEntities().get(0).getSentiment());
 //        System.out.println(results.getEntities().get(0).getEmotion().getJoy());
 
-        String userInput = "IBM is an American multinational technology " +
-                "Thank you and have a nice dog " +
-                "I love apples! I don't like oranges.";
+        String userInput =
+                "I hate this music. I fear in dark. I love apples, but I hate oranges. Your story is sad. ";
 
         User user = new User("Kiki");
         Text text = new Text(userInput);
@@ -69,7 +64,7 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("music-gen");
         EntityManager em = emf.createEntityManager();
 
-        populateDb(em);
+       // populateDb(em);
 
 //        Student foundStudent1 = em.find(Student.class, 1L);
 //        System.out.println("--Found student #1");
@@ -77,6 +72,11 @@ public class Main {
 //        System.out.println("----address of student----" + foundStudent1.getAddress());
 
 
+        List<String> orderedEmotions = EmotionController.getOrderedEmotions(em, 13);
+        for (String orderedEmotion : orderedEmotions) {
+            System.out.println(orderedEmotion);
+
+        }
         em.close();
         emf.close();
 
