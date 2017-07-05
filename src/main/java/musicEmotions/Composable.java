@@ -1,3 +1,5 @@
+package musicEmotions;
+
 import jm.JMC;
 
 /**

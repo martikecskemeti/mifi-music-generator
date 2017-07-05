@@ -1,3 +1,5 @@
+package controller;
+
 import model.Text;
 import model.Word;
 
@@ -11,15 +13,15 @@ import java.util.*;
 public class EmotionController {
 
 
-    public static List<String> getOrderedEmotions(EntityManager em, long id) {
+    public static List<String> getOrderedEmotions(EntityManager em, Text text) {
         List<String> orderedEmotions = new ArrayList<>();
         try {
             Text textResult = em.createNamedQuery("Text.getTheText", Text.class)
-                    .setParameter("id", id)
+                    .setParameter("id", text.getId())
                     .getSingleResult();
-            String[] separatedWords = textResult.getContent().split("[\\p{Punct}\\s]+");
+            String[] separatedWords = textResult.getText().split("[\\p{Punct}\\s]+");
 
-            Map<String, String> emotions = getEmotionsFromText(em, id);
+            Map<String, String> emotions = getEmotionsFromText(em, text);
 
             for (String separatedWord : separatedWords) {
                 String emo = emotions.get(separatedWord);
@@ -34,10 +36,10 @@ public class EmotionController {
         return orderedEmotions;
     }
 
-    private static Map<String, String> getEmotionsFromText(EntityManager em, long id) {
+    private static Map<String, String> getEmotionsFromText(EntityManager em, Text text) {
         Map<String, String> emotions = new HashMap<>();
         List<Word> words = em.createNamedQuery("Word.getAllKeywordsWithScores", Word.class)
-                .setParameter("id", id)
+                .setParameter("id", text.getId())
                 .getResultList();
 
         for (Word word : words) {

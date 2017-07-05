@@ -1,6 +1,12 @@
+package controller;
+
 import jm.JMC;
 import jm.music.data.Score;
 import jm.util.Write;
+import musicEmotions.Anger;
+import musicEmotions.Fear;
+import musicEmotions.Joy;
+import musicEmotions.Sad;
 
 import java.util.List;
 

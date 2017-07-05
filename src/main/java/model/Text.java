@@ -1,5 +1,7 @@
 package model;
 
+import org.apache.logging.log4j.core.config.plugins.util.ResolverUtil;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +40,7 @@ public class Text {
         return words;
     }
 
-    public void addWords(Word word) {
+    public void addWord(Word word) {
         if(word.getText() != this){
             word.setText(this);
         }
@@ -73,11 +75,12 @@ public class Text {
         this.user = user;
     }
 
-    public String getContent() {
+    public String getText() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
     }
+
 }

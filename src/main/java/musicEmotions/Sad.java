@@ -1,28 +1,31 @@
+package musicEmotions;
+
 import jm.JMC;
 import jm.music.data.*;
+import musicEmotions.Composable;
 
 import java.util.Random;
 
 /**
- * Created by marti on 2017.07.04..
+ * Created by marti on 2017.07.03..
  */
-public class Fear implements JMC, Composable {
+public class Sad implements JMC, Composable {
 
     private Score score;
-    private Part inst = new Part("Fear", new Random().nextInt(127), 5);
-    private Part chords = new Part("FearChords", new Random().nextInt(127), 6);
+    private Part inst = new Part("musicEmotions.Sad", 0, 4);
+    private Part chords = new Part("SadChords", 0, 5);
     private Phrase phr = new Phrase();
     private Phrase phrBass = new Phrase();
     private int bars = 4;
     private int tempo;
     private double start;
     private int[] minorPitches = {A3, B3, C4, D4, E4, F4, G4, A4, REST};
-    private double[] rhythm = {C, Q, SQ, SQ, SQ, SQ, SQ, SQ, 0.15, 0.15, EIGHTH_NOTE_TRIPLET, DOTTED_EIGHTH_NOTE, DOTTED_SIXTEENTH_NOTE};
+    private double[] rhythm = {C};
     private int[] minorBass = {E4, D4, A2};
     private Random rand = new Random();
 
 
-    public Fear(Score score) {
+    public Sad(Score score) {
         this.score = score;
         this.tempo = 60;
         this.start = this.score.getEndTime();
@@ -51,13 +54,24 @@ public class Fear implements JMC, Composable {
         setPhraseStart(phr);
         setPhraseStart(phrBass);
         int size = 0;
-        while (size <= bars * 8) {
-            Note n = new Note(rand.nextInt(127 - 20) + 20, rhythm[rand.nextInt(rhythm.length)]);
-            Note b = new Note(rand.nextInt(127 - 20) + 20, rhythm[rand.nextInt(rhythm.length)]);
-            phr.addNote(n);
-            phrBass.addNote(b);
-            size++;
+
+        while (size <= bars * 4) {
+            int randPitch = rand.nextInt(minorPitches.length);
+            int randBass = rand.nextInt(minorBass.length);
+            int randPitchRhythm = rand.nextInt(rhythm.length);
+            if (size % 4 == 0) {
+                Note n = new Note(minorPitches[randPitch], rhythm[randPitchRhythm]);
+                Note b = new Note(minorBass[randBass], SB);
+                phr.addNote(n);
+                phrBass.addNote(b);
+                size++;
+            } else {
+                Note n = new Note(minorPitches[randPitch], CROTCHET);
+                phr.addNote(n);
+                size++;
+            }
         }
+
         inst.addPhrase(phr);
         chords.addPhrase(phrBass);
     }
