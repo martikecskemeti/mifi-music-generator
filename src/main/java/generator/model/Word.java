@@ -1,6 +1,7 @@
-package model;
+package generator.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by marti on 2017.06.22..
@@ -12,7 +13,7 @@ import javax.persistence.*;
 
 
 @Entity
-public class Word {
+public class Word implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

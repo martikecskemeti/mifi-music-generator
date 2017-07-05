@@ -1,7 +1,13 @@
-package controller;
+package generator.controller;
 
-import model.Text;
-import model.Word;
+import generator.model.Text;
+import generator.model.Word;
+import generator.repo.TextRepository;
+import generator.repo.UserRepository;
+import generator.repo.WordRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -10,18 +16,27 @@ import java.util.*;
 /**
  * Created by sfanni on 7/4/17.
  */
+
+@Component
 public class EmotionController {
 
+    private TextRepository textRepository;
 
-    public static List<String> getOrderedEmotions(EntityManager em, Text text) {
+    private WordRepository wordRepository;
+
+    @Autowired
+    public EmotionController(TextRepository textRepository, WordRepository wordRepository) {
+        this.textRepository = textRepository;
+        this.wordRepository = wordRepository;
+    }
+
+    public List<String> getOrderedEmotions(Text text) {
         List<String> orderedEmotions = new ArrayList<>();
         try {
-            Text textResult = em.createNamedQuery("Text.getTheText", Text.class)
-                    .setParameter("id", text.getId())
-                    .getSingleResult();
+            Text textResult = textRepository.findOne(text.getId());
             String[] separatedWords = textResult.getText().split("[\\p{Punct}\\s]+");
 
-            Map<String, String> emotions = getEmotionsFromText(em, text);
+            Map<String, String> emotions = getEmotionsFromText(text);
 
             for (String separatedWord : separatedWords) {
                 String emo = emotions.get(separatedWord);
@@ -36,11 +51,10 @@ public class EmotionController {
         return orderedEmotions;
     }
 
-    private static Map<String, String> getEmotionsFromText(EntityManager em, Text text) {
+    private  Map<String, String> getEmotionsFromText(Text text) {
+        textRepository.findOne(text.getId());
         Map<String, String> emotions = new HashMap<>();
-        List<Word> words = em.createNamedQuery("Word.getAllKeywordsWithScores", Word.class)
-                .setParameter("id", text.getId())
-                .getResultList();
+        List<Word> words =  wordRepository.findByTextId(text.getId());
 
         for (Word word : words) {
             emotions.put(word.getName(), getHighestEmotion(word));
@@ -48,7 +62,7 @@ public class EmotionController {
         return emotions;
     }
 
-    private static String  getHighestEmotion(Word word) {
+    private String  getHighestEmotion(Word word) {
         Map <String, Double> emotionScores = new HashMap<>();
         emotionScores.put("anger", word.getAnger());
         emotionScores.put("joy", word.getJoy());

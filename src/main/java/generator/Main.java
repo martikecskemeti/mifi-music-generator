@@ -1,13 +1,13 @@
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.AnalysisResults;
-import controller.DbController;
-import controller.MainController;
-import model.Text;
+import generator.controller.DbController;
+import generator.controller.MainController;
+import generator.model.Text;
 
 
 /**
  * Created by marti on 2017.06.20..
  */
-public class Main {
+/*public class Main {
 
 
 
@@ -25,4 +25,4 @@ public class Main {
         MainController.generateMusic(DbController.generateOrderedEmotions(text),title);
 
     }
-}
+}*/

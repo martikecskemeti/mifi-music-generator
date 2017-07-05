@@ -1,9 +1,15 @@
-package controller;
+package generator.controller;
 
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.AnalysisResults;
-import model.Text;
-import model.User;
-import model.Word;
+import generator.model.Text;
+import generator.model.User;
+import generator.model.Word;
+import generator.repo.TextRepository;
+import generator.repo.UserRepository;
+import generator.repo.WordRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,31 +20,30 @@ import java.util.List;
 /**
  * Created by sfanni on 7/5/17.
  */
+
+@Component
 public class DbController {
 
-    public static List<String> generateOrderedEmotions(Text text) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("music-gen");
-        EntityManager em = emf.createEntityManager();
 
-        List<String> orderedEmotions = EmotionController.getOrderedEmotions(em, text);
+    private TextRepository textRepository;
+    private UserRepository userRepository;
+    private WordRepository wordRepository;
 
-        em.close();
-        emf.close();
-        return orderedEmotions;
+    @Autowired
+    public DbController(TextRepository textRepository, UserRepository userRepository, WordRepository wordRepository) {
+        this.wordRepository = wordRepository;
+        this.userRepository = userRepository;
+        this.textRepository = textRepository;
     }
 
-    public static void populateDb(Text text, AnalysisResults results) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("music-gen");
-        EntityManager em = emf.createEntityManager();
 
-        User user = new User("Kiki");
+    public void populateDb(Text text, AnalysisResults results) {
 
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-        em.persist(user);
+        User user = new User("Maci");
+        userRepository.save(user);
 
         text.setSumSentiment(results.getSentiment().getDocument().getScore());
-        em.persist(text);
+        textRepository.save(text);
         user.addText(text);
 
         for(int i=0; i<results.getKeywords().size(); i++){
@@ -50,14 +55,10 @@ public class DbController {
             word.setDisgust(results.getKeywords().get(i).getEmotion().getDisgust());
             word.setSadness(results.getKeywords().get(i).getEmotion().getSadness());
             word.setSentiment(results.getKeywords().get(i).getSentiment().getScore());
-            em.persist(word);
+            wordRepository.save(word);
             text.addWord(word);
         }
-
-        transaction.commit();
         System.out.println("stuff saved.");
-        em.close();
-        emf.close();
 
-    }
+        }
 }

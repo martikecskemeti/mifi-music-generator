@@ -1,12 +1,14 @@
-package controller;
+package generator.controller;
 
 import jm.JMC;
 import jm.music.data.Score;
 import jm.util.Write;
-import musicEmotions.Anger;
-import musicEmotions.Fear;
-import musicEmotions.Joy;
-import musicEmotions.Sad;
+import generator.musicEmotions.Anger;
+import generator.musicEmotions.Fear;
+import generator.musicEmotions.Joy;
+import generator.musicEmotions.Sad;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -17,6 +19,7 @@ public class MusicController implements JMC {
 
     private Score score;
     private String title;
+
 
     public MusicController(String title) {
         this.title = title;

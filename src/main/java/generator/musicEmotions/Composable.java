@@ -1,4 +1,4 @@
-package musicEmotions;
+package generator.musicEmotions;
 
 import jm.JMC;
 
