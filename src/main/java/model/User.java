@@ -39,7 +39,7 @@ public class User {
         return texts;
     }
 
-    public void addTexts(Text text) {
+    public void addText(Text text) {
         if(text.getUser() != this){
             text.setUser(this);
         }

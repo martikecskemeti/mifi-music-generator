@@ -1,3 +1,5 @@
+package musicEmotions;
+
 import jm.JMC;
 import jm.music.data.*;
 import jm.music.tools.Mod;
@@ -10,7 +12,7 @@ import java.util.Random;
 public class Anger implements JMC, Composable {
 
     private Score score;
-    private Part inst = new Part("Anger", new Random().nextInt(127), 6);
+    private Part inst = new Part("musicEmotions.Anger", new Random().nextInt(127), 6);
     private Part chords = new Part("AngerChords", new Random().nextInt(127), 7);
     private Phrase phrBass = new Phrase();
     private int bars = 4;

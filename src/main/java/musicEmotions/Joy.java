@@ -1,6 +1,9 @@
+package musicEmotions;
+
 import jm.JMC;
 import jm.music.data.*;
 import jm.music.tools.Mod;
+import musicEmotions.Composable;
 
 import java.util.Random;
 
@@ -10,7 +13,7 @@ import java.util.Random;
 public class Joy implements JMC, Composable {
 
     private Score score;
-    private Part inst = new Part("Joy", 0, 0);
+    private Part inst = new Part("musicEmotions.Joy", 0, 0);
     private Part chords = new Part("JoyChords", 0, 1);
     private Part bass = new Part("JoyBass", new Random().nextInt(127), 2);
     private Part bassChords = new Part("JoyBassChords", new Random().nextInt(127), 3);
@@ -130,7 +133,6 @@ public class Joy implements JMC, Composable {
             score.addPart(bass);
             score.addPart(bassChords);
         }
-        System.out.println("chords: " + x);
     }
 
     private void makeChords() {
