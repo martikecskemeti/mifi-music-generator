@@ -1,22 +1,18 @@
 package generator.model;
 
-import org.apache.logging.log4j.core.config.plugins.util.ResolverUtil;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
 
 /**
  * Created by marti on 2017.06.22..
  */
-@NamedQuery(name = "Text.getTheText", query = "SELECT t FROM Text t WHERE t.id=:id")
+
 @Entity
 public class Text implements Serializable {
 
-    private static final long serialVersionUID = -3009157732242241606L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

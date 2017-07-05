@@ -6,11 +6,6 @@ import java.io.Serializable;
 /**
  * Created by marti on 2017.06.22..
  */
-@NamedQueries( {
-        @NamedQuery(name="Word.getAllKeywordsWithScores", query="SELECT w FROM Word w WHERE w.text.id=:id"),
-        @NamedQuery(name="Word.getEmotionsOfText", query ="SELECT w.name, w.anger, w.disgust, w.fear, w.joy, w.sadness FROM Word w WHERE w.text.id=:id")
-})
-
 
 @Entity
 public class Word implements Serializable{

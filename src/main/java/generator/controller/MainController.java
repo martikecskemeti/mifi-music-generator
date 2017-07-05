@@ -12,7 +12,6 @@ import java.util.List;
 @Component
 public class MainController {
 
-
     public static AnalysisResults getSentimentResults(Text text) {
         TextAnalyser analyser = new TextAnalyser(
                 "56cda265-786b-421c-9690-2bd3986be8a7",

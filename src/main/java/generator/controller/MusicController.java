@@ -7,8 +7,6 @@ import generator.musicEmotions.Anger;
 import generator.musicEmotions.Fear;
 import generator.musicEmotions.Joy;
 import generator.musicEmotions.Sad;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 

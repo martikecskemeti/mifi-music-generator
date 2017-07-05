@@ -1,6 +1,5 @@
 package generator.musicEmotions;
 
-import jm.JMC;
 
 /**
  * Created by marti on 2017.07.03..

@@ -3,8 +3,6 @@ package generator.musicEmotions;
 import jm.JMC;
 import jm.music.data.*;
 import jm.music.tools.Mod;
-import generator.musicEmotions.Composable;
-
 import java.util.Random;
 
 /**

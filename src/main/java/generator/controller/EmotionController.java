@@ -3,13 +3,9 @@ package generator.controller;
 import generator.model.Text;
 import generator.model.Word;
 import generator.repo.TextRepository;
-import generator.repo.UserRepository;
 import generator.repo.WordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.*;
 
@@ -21,7 +17,6 @@ import java.util.*;
 public class EmotionController {
 
     private TextRepository textRepository;
-
     private WordRepository wordRepository;
 
     @Autowired

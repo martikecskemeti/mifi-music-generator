@@ -2,20 +2,13 @@ package generator.controller;
 
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.AnalysisResults;
 import generator.model.Text;
-import generator.model.User;
-import generator.model.Word;
-import generator.repo.TextRepository;
-import generator.repo.UserRepository;
-import generator.repo.WordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 import java.util.Map;
 
 
@@ -54,7 +47,6 @@ public class WebController {
         dbController.populateDb(text, results);
         MainController.generateMusic(emotionController.getOrderedEmotions(text),title);
         System.out.println(emotionController.getOrderedEmotions(text));
-        System.out.println();
         return "generate";
     }
 }

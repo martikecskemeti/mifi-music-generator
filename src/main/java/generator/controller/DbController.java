@@ -9,13 +9,6 @@ import generator.repo.UserRepository;
 import generator.repo.WordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-import java.util.List;
 
 /**
  * Created by sfanni on 7/5/17.
@@ -23,7 +16,6 @@ import java.util.List;
 
 @Component
 public class DbController {
-
 
     private TextRepository textRepository;
     private UserRepository userRepository;
@@ -43,8 +35,8 @@ public class DbController {
         userRepository.save(user);
 
         text.setSumSentiment(results.getSentiment().getDocument().getScore());
-        textRepository.save(text);
         user.addText(text);
+        textRepository.save(text);
 
         for(int i=0; i<results.getKeywords().size(); i++){
             Word word = new Word();
@@ -55,8 +47,8 @@ public class DbController {
             word.setDisgust(results.getKeywords().get(i).getEmotion().getDisgust());
             word.setSadness(results.getKeywords().get(i).getEmotion().getSadness());
             word.setSentiment(results.getKeywords().get(i).getSentiment().getScore());
-            wordRepository.save(word);
             text.addWord(word);
+            wordRepository.save(word);
         }
         System.out.println("stuff saved.");
 
