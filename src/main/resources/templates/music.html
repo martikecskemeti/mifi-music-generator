@@ -3,24 +3,32 @@
 <head>
     <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css"></link>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
     <script type='text/javascript' src='js/main.js'></script>
+    <link href="https://fonts.googleapis.com/css?family=Armata|Comfortaa|Inconsolata|Jura|Maven+Pro|PT+Sans|PT+Sans+Narrow|Rubik|Varela+Round|Work+Sans" rel="stylesheet"></link>
 
 </head>
-<body>
+<body id="musicBody">
 
 
 <script type='text/javascript' src='//www.midijs.net/lib/midi.js'></script>
-<p th:text="'Title is: ' + ${title} "/>
-<a id="musicStart" th:title="${title}">Start MIDI</a>
+<div id="player">
+<p id="caption" th:text=" ${caption} "/>
+<p th:text=" ${text} " />
+<div id="player2">
+<a id="musicStart" th:title="${title}">Start Song</a>
+    <a id="musicStop" >Stop Song</a>
+
+    <a id="save" th:href="'/' + ${title}">Save</a>
+</div></div>
+
 
 <!--<a href="#" th:onclick="'MIDIjs.play(\'' + ${title} + '.mid' + '\');'">Play hinematov.mid</a>
 <p th:text="'MIDIjs.play(' + ${title} + '.mid)'"></p>
 <p th:text="'MIDIjs.play(\'' + 'src\main\resources\static\''+${title} + '.mid' + '\');'"></p>-->
-<a id="musicStop" >Stop MIDI</a>
 
-<a th:href="'/' + ${title}">Save</a>
 
 </body>
 </html>

@@ -3,19 +3,19 @@
 <head>
     <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css"></link>
+    <link href="https://fonts.googleapis.com/css?family=Armata|Comfortaa|Inconsolata|Jura|Maven+Pro|PT+Sans|PT+Sans+Narrow|Rubik|Varela+Round|Work+Sans" rel="stylesheet"></link>
 </head>
-<body>
-<p th:text="'Hello, ' + ${name} + '!'" />
+<body id="generateBody">
 <form name="generate" action="generate" method="post">
-    <label>Write here
-    </label>
-    <input type="text" name="title">
+    <label>Song Title
+    </label><br></br>
+    <input id="title" type="text" name="title"></input><br></br>
+    <br></br>
+    <label>Add your text</label><br></br>
 
-    </input>
-    <input type="text" cols="40" rows="5" name="text">
-
-    </input>
-    <input type="submit" value="Submit"> </input>
+    <input type="text" size="80" name="text"></input><br></br><br></br>
+    <input id="submit" type="submit" value="Generate Music"> </input>
 </form>
 
 <!--
