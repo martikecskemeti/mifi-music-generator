@@ -54,7 +54,7 @@ public class MusicController implements JMC {
         String midiTitle = title + ".mid";
         Write.midi(score, midiTitle);
         File src = new File(midiTitle);
-        File dst = new File("resources/static/" + midiTitle);
+        File dst = new File("src/main/resources/static/" + midiTitle);
         src.renameTo( dst);
 
     }

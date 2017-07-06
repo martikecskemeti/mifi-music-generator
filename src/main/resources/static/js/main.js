@@ -1,9 +1,12 @@
 $( document ).ready(function() {
-    $( "#musictitle" ).click(function() {
-        var titleM = $("#musictitle").text();
-        alert(titleM);
+    $( "#musicStart" ).click(function() {
+        var titleM = $("#musicStart").attr("title");
         MIDIjs.play(titleM);
     });
+    $ ("#musicStop").click(function () {
+        MIDIjs.stop();
+    })
     console.log( "ready!" );
+
 });
 

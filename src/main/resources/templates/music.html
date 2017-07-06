@@ -13,12 +13,14 @@
 
 <script type='text/javascript' src='//www.midijs.net/lib/midi.js'></script>
 <p th:text="'Title is: ' + ${title} "/>
+<a id="musicStart" th:title="${title}">Start MIDI</a>
 
 <!--<a href="#" th:onclick="'MIDIjs.play(\'' + ${title} + '.mid' + '\');'">Play hinematov.mid</a>
 <p th:text="'MIDIjs.play(' + ${title} + '.mid)'"></p>
-<p th:text="'MIDIjs.play(\'' + 'src\main\resources\static\''+${title} + '.mid' + '\');'"></p>
-<a href="#" onClick="MIDIjs.stop();">Stop MIDI Playback</a>
-<a th:onclick="'alert(\'' + ${title} + 'bubu'+'\');'"> Click</a>-->
-<a id="musictitle" th:text="${title}"></a>
+<p th:text="'MIDIjs.play(\'' + 'src\main\resources\static\''+${title} + '.mid' + '\');'"></p>-->
+<a id="musicStop" >Stop MIDI</a>
+
+<a th:href="'/' + ${title}">Save</a>
+
 </body>
 </html>
