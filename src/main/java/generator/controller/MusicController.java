@@ -8,6 +8,7 @@ import generator.musicEmotions.Fear;
 import generator.musicEmotions.Joy;
 import generator.musicEmotions.Sad;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -49,6 +50,12 @@ public class MusicController implements JMC {
     }
 
     private void renderAudio() {
-        Write.midi(score, title +".mid");
+
+        String midiTitle = title + ".mid";
+        Write.midi(score, midiTitle);
+        File src = new File(midiTitle);
+        File dst = new File("resources/static/" + midiTitle);
+        src.renameTo( dst);
+
     }
 }

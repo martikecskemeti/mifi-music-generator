@@ -2,6 +2,8 @@ package generator.controller;
 
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.AnalysisResults;
 import generator.model.Text;
+import jm.music.tools.Mod;
+import org.codehaus.groovy.runtime.StringGroovyMethods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,8 +35,8 @@ public class WebController {
     }
 
 
-    @RequestMapping(value = "/textinput", method = RequestMethod.POST)
-    public String getTextInput(@RequestParam Map<String, String> params) {
+    @RequestMapping(value = "/generate", method = RequestMethod.POST)
+    public String getTextInput(@RequestParam Map<String, String> params, Model model) {
         String title=params.get("title");
         String textContent=params.get("text");
 
@@ -46,9 +48,19 @@ public class WebController {
 
         dbController.populateDb(text, results);
         MainController.generateMusic(emotionController.getOrderedEmotions(text),title);
+        String midiTitle = title + ".mid";
+        model.addAttribute("title", midiTitle);
         System.out.println(emotionController.getOrderedEmotions(text));
-        return "generate";
-    }
-}
+
+        return "music";
+    }}
+
+//    @RequestMapping("/music")
+//    public String playMusic(@RequestParam String title, Model model) {
+//        String midiTitle = title + ".mid";
+//        model.addAttribute("title", midiTitle);
+//        return "music";
+//    }
+//}
 
 
