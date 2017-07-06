@@ -1,9 +1,7 @@
-package musicEmotions;
+package generator.musicEmotions;
 
 import jm.JMC;
 import jm.music.data.*;
-import musicEmotions.Composable;
-
 import java.util.Random;
 
 /**

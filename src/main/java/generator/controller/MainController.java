@@ -1,17 +1,16 @@
-package controller;
+package generator.controller;
 
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.AnalysisResults;
-import model.Text;
-import org.apache.logging.log4j.core.config.plugins.util.ResolverUtil;
+import generator.model.Text;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
  * Created by sfanni on 7/5/17.
  */
+@Component
 public class MainController {
-
 
     public static AnalysisResults getSentimentResults(Text text) {
         TextAnalyser analyser = new TextAnalyser(
@@ -22,7 +21,7 @@ public class MainController {
 
 
     public static void generateMusic(List<String> orderedEmotions,String title) {
-        controller.MusicController mc = new controller.MusicController(title);
+        generator.controller.MusicController mc = new generator.controller.MusicController(title);
         mc.makeSong(orderedEmotions);
     }
 }

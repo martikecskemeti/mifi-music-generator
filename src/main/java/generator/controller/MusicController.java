@@ -1,13 +1,14 @@
-package controller;
+package generator.controller;
 
 import jm.JMC;
 import jm.music.data.Score;
 import jm.util.Write;
-import musicEmotions.Anger;
-import musicEmotions.Fear;
-import musicEmotions.Joy;
-import musicEmotions.Sad;
+import generator.musicEmotions.Anger;
+import generator.musicEmotions.Fear;
+import generator.musicEmotions.Joy;
+import generator.musicEmotions.Sad;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -17,6 +18,7 @@ public class MusicController implements JMC {
 
     private Score score;
     private String title;
+
 
     public MusicController(String title) {
         this.title = title;
@@ -48,6 +50,12 @@ public class MusicController implements JMC {
     }
 
     private void renderAudio() {
-        Write.midi(score, title +".mid");
+
+        String midiTitle = title + ".mid";
+        Write.midi(score, midiTitle);
+        File src = new File(midiTitle);
+        File dst = new File("src/main/resources/static/" + midiTitle);
+        src.renameTo( dst);
+
     }
 }

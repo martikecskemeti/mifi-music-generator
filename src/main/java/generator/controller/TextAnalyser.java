@@ -1,8 +1,8 @@
-package controller;
+package generator.controller;
 
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.NaturalLanguageUnderstanding;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.*;
-import model.Text;
+import generator.model.Text;
 
 /**
  * Created by sfanni on 6/21/17.

@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="'Hello, ' + ${name} + '!'" />
+<form name="generate" action="generate" method="post">
+    <label>Write here
+    </label>
+    <input type="text" name="title">
+
+    </input>
+    <input type="text" cols="40" rows="5" name="text">
+
+    </input>
+    <input type="submit" value="Submit"> </input>
+</form>
+
+<!--
+<script type='text/javascript' src='//www.midijs.net/lib/midi.js'></script>
+<p th:text="'Title is: ' + ${title} "/>
+<a href="#" onClick="MIDIjs.play('feri.mid');">Play hinematov.mid</a>
+<a href="#" onClick="MIDIjs.stop();">Stop MIDI Playback</a>
+-->
+
+</body>
+</html>

@@ -1,9 +1,7 @@
-package musicEmotions;
+package generator.musicEmotions;
 
 import jm.JMC;
 import jm.music.data.*;
-import jm.music.tools.Mod;
-
 import java.util.Random;
 
 /**
@@ -68,6 +66,7 @@ public class Anger implements JMC, Composable {
 
     private void makeChords() {
         CPhrase cp = new CPhrase(0.0);
+        setCPhraseStart(cp);
         double[][] rhythmArray = {{SQ - SQ / 3, SQ - SQ / 3, SQ - SQ / 3, SQ - SQ / 3}, {SQ - SQ / 3, Q - Q / 3, SQ - SQ / 3, Q - SQ / 3}};
         for (short i = 0; i < bars + 2; i++) {
             int x = (int) (Math.random() * 2);

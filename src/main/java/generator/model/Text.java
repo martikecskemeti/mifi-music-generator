@@ -1,19 +1,17 @@
-package model;
-
-import org.apache.logging.log4j.core.config.plugins.util.ResolverUtil;
+package generator.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
 
 /**
  * Created by marti on 2017.06.22..
  */
-@NamedQuery(name = "Text.getTheText", query = "SELECT t FROM Text t WHERE t.id=:id")
+
 @Entity
-public class Text {
+public class Text implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
