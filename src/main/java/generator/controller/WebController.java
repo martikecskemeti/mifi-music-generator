@@ -50,6 +50,8 @@ public class WebController {
         MainController.generateMusic(emotionController.getOrderedEmotions(text),title);
         String midiTitle = title + ".mid";
         model.addAttribute("title", midiTitle);
+        model.addAttribute("text", textContent);
+        model.addAttribute("caption", title);
         System.out.println(emotionController.getOrderedEmotions(text));
 
         return "music";
