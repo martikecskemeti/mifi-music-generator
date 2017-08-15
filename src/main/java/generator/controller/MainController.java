@@ -12,10 +12,12 @@ import java.util.List;
 @Component
 public class MainController {
 
+    private static WatsonConnectionController watson = WatsonConnectionController.getInstance();
+
     public static AnalysisResults getSentimentResults(Text text) {
         TextAnalyser analyser = new TextAnalyser(
-                "56cda265-786b-421c-9690-2bd3986be8a7",
-                "azoEpvJAuaCs");
+                watson.getUserName(),
+                watson.getPassword());
         return analyser.getData(text);
     }
 
