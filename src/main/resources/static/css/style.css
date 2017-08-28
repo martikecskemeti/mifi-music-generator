@@ -1,0 +1,71 @@
+#generateBody{
+    background-image: url("../imgs/generatebg.png");
+}
+
+#musicBody{
+    background-image: url("../imgs/generatebg2.png");
+    background-size: cover;
+}
+
+body,#submit {
+    font-family: 'Armata', sans-serif;
+}
+
+input[type="submit"], input[type='text'] {
+    background-color: rgba(139, 64, 9, 0.39) !important;
+    border: none;
+    margin-left:20px;
+    margin-top: 20px;
+    height: 35px;
+    text-align: center;
+    padding: 10px;
+    font-size: medium;
+}
+
+#title{
+    height: 25px;
+}
+
+
+label{
+    margin-left:20px;
+    margin-top: 40px;
+    text-align: center;
+}
+
+body{
+    margin-top: 20px;
+}
+
+input[type='text'] {
+    height: 70px;
+}
+
+#player,#player2{
+    float: right;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+#musicStart, #musicStop, #save {
+    padding-right: 15px;
+    margin-top: 15px;
+}
+
+#save{
+    text-decoration: none;
+    color: saddlebrown;
+}
+#player2{
+    margin-top: 15px;
+}
+
+#caption{
+    font-size: larger;
+    font-weight: bold;
+}
+
+#submit{
+    padding: 5px;
+    font-size: medium;
+}
